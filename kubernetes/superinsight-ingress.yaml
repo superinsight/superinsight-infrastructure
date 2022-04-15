@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: superinsight-dev
+  name: superinsight-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  defaultBackend:
+    service:
+      name: superinsight-api-finetuning
+      port:
+        number: 8080
+  rules:
+    - host: finetuning.api.superinsight.dev #Modify the host do your own domain here
+      http:
+        paths:
+          - backend:
+              service:
+                name: superinsight-api-finetuning
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
