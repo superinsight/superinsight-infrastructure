@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: superinsight-dev
+  name: superinsight-db-mongo
+spec:
+  selector:
+    app: superinsight-db-mongo
+  ports:
+    - port: 27017
+      protocol: TCP
+      targetPort: 27017
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: superinsight-dev
+  name: superinsight-db-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: superinsight-db-mongo
+  template:
+    metadata:
+      labels:
+        app: superinsight-db-mongo
+    spec:
+      containers:
+        - name: superinsight-db-mongo
+          image: docker.io/mongo:latest
+          imagePullPolicy: Always

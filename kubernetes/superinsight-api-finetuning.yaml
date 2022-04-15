@@ -1,0 +1,35 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: superinsight-dev
+  name: superinsight-api-finetuning
+spec:
+  selector:
+    app: superinsight-api-finetuning
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: 8080
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: superinsight-dev
+  name: superinsight-api-finetuning
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: superinsight-api-finetuning
+  template:
+    metadata:
+      labels:
+        app: superinsight-api-finetuning
+    spec:
+      containers:
+        - name: superinsight-api-finetuning
+          image: docker.io/superinsight/superinsight-api-finetuning:latest
+          imagePullPolicy: Always
