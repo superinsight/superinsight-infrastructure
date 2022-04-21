@@ -6,11 +6,6 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  defaultBackend:
-    service:
-      name: superinsight-api-finetuning
-      port:
-        number: 8080
   rules:
     - host: finetuning.api.superinsight.dev #Modify the host do your own domain here
       http:
@@ -18,6 +13,26 @@ spec:
           - backend:
               service:
                 name: superinsight-api-finetuning
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+    - host: inference.api.superinsight.dev #Modify the host do your own domain here
+      http:
+        paths:
+          - backend:
+              service:
+                name: superinsight-api-inference
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
+    - host: product.api.superinsight.dev #Modify the host do your own domain here
+      http:
+        paths:
+          - backend:
+              service:
+                name: superinsight-api-product
                 port:
                   number: 8080
             path: /
