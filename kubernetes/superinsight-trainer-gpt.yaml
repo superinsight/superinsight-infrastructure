@@ -18,3 +18,6 @@ spec:
         - name: superinsight-trainer-gpt
           image: docker.io/superinsight/superinsight-trainer-gpt:latest
           imagePullPolicy: Always
+          resources:
+            limits:
+              nvidia.com/gpu: 1
