@@ -1,0 +1,20 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: superinsight-dev
+  name: superinsight-trainer-gpt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: superinsight-trainer-gpt
+  template:
+    metadata:
+      labels:
+        app: superinsight-trainer-gpt
+    spec:
+      containers:
+        - name: superinsight-trainer-gpt
+          image: docker.io/superinsight/superinsight-trainer-gpt:latest
+          imagePullPolicy: Always
